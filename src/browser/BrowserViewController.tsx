@@ -145,11 +145,11 @@ export class BrowserViewController extends React.Component<Props, State> {
             })}
           </View>
 
-          {/* <FooterConnected
+          <FooterConnected
             config={config.footer}
             scrollY={this.scrollY}
             showToolbar={true}
-          /> */}
+          />
         </View>
       </View>
     );

@@ -1,18 +1,17 @@
-import * as React from "react";
-import { ViewProps } from "react-native";
-import Animated from "react-native-reanimated";
-import { HeaderConfig } from "../browserConfig";
+import * as React from 'react';
+import { ViewProps } from 'react-native';
+import { HeaderConfig } from '../browserConfig';
 interface RetractibleHeaderProps {
     config: HeaderConfig;
-    scrollY: Animated.Value<number>;
+    scrollY: number;
     urlBarText: string;
-    orientation: "portrait" | "landscape";
+    orientation: 'portrait' | 'landscape';
 }
-export declare class RetractibleHeader extends React.Component<RetractibleHeaderProps & Omit<ViewProps, "orientation">, {}> {
+export declare class RetractibleHeader extends React.Component<RetractibleHeaderProps & Omit<ViewProps, 'orientation'>, {}> {
     private readonly animatedNavBarTranslateYPortrait;
     private readonly animatedNavBarTranslateYLandscape;
     private readonly animatedTitleOpacity;
-    constructor(props: RetractibleHeaderProps & Omit<ViewProps, "orientation">);
+    constructor(props: RetractibleHeaderProps & Omit<ViewProps, 'orientation'>);
     render(): JSX.Element;
 }
 export declare const RetractibleHeaderConnected: import("react-redux").ConnectedComponent<React.ComponentType<import("react-redux").Matching<{

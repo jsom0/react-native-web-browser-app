@@ -1,6 +1,6 @@
-import * as React from "react";
-import { BrowserConfig } from "./browserConfig";
-import { updateOrientation } from "../store/uiState";
+import * as React from 'react';
+import { BrowserConfig } from './browserConfig';
+import { updateOrientation } from '../store/uiState';
 interface Props {
     config?: BrowserConfig;
     updateOrientation: typeof updateOrientation;

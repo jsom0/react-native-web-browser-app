@@ -1,7 +1,10 @@
 import * as React from 'react';
 import {ViewProps} from 'react-native';
 import Animated from 'react-native-reanimated';
-import {EdgeInsets, SafeAreaConsumer} from 'react-native-safe-area-context';
+import {
+  EdgeInsets,
+  SafeAreaInsetsContext,
+} from 'react-native-safe-area-context';
 import {connect} from 'react-redux';
 import {
   GRADIENT_PROGRESS_BAR_HEIGHT,
@@ -16,11 +19,11 @@ import {
   DEFAULT_HEADER_REVEALED_HEIGHT,
 } from './TabLocationView';
 import {URL_BAR_VIEW_PADDING_VERTICAL} from './URLBarView';
-const {interpolate, Extrapolate} = Animated;
+// const {interpolate, Extrapolate} = Animated;
 
 interface RetractibleHeaderProps {
   config: HeaderConfig;
-  scrollY: Animated.Value<number>;
+  scrollY: number;
 
   urlBarText: string;
   orientation: 'portrait' | 'landscape';
@@ -32,9 +35,9 @@ export class RetractibleHeader extends React.Component<
   RetractibleHeaderProps & Omit<ViewProps, 'orientation'>,
   {}
 > {
-  private readonly animatedNavBarTranslateYPortrait: Animated.Node<number>;
-  private readonly animatedNavBarTranslateYLandscape: Animated.Node<number>;
-  private readonly animatedTitleOpacity: Animated.Node<number>;
+  private readonly animatedNavBarTranslateYPortrait: number;
+  private readonly animatedNavBarTranslateYLandscape: number;
+  private readonly animatedTitleOpacity: number;
 
   constructor(props: RetractibleHeaderProps & Omit<ViewProps, 'orientation'>) {
     super(props);
@@ -51,68 +54,45 @@ export class RetractibleHeader extends React.Component<
     const HEADER_RETRACTION_DISTANCE: number =
       HEADER_REVEALED_HEIGHT - HEADER_RETRACTED_HEIGHT;
 
-    // const diffClampNode = diffClamp(
-    //     add(this.scrollY, this.snapOffset),
-    //     0,
-    //     NAV_BAR_HEIGHT,
-    // );
-    // const inverseDiffClampNode = multiply(diffClampNode, -1);
+    const input: Array<number> = [
+      -HEADER_RETRACTION_DISTANCE,
+      HEADER_RETRACTION_DISTANCE,
+    ];
+    const outputTranslateYPortrait: Array<number> = [
+      HEADER_RETRACTED_HEIGHT,
+      HEADER_REVEALED_HEIGHT,
+    ];
+    const outputTranslateYLandscape: Array<number> = [
+      HEADER_HIDDEN_HEIGHT,
+      HEADER_REVEALED_HEIGHT,
+    ];
+    const outputTitleOpacity: Array<number> = [0, 1];
 
-    // const clock = new Clock();
+    this.animatedNavBarTranslateYPortrait = Animated.interpolate(
+      this.props.scrollY,
+      input,
+      outputTranslateYPortrait,
+      Animated.Extrapolate.CLAMP,
+    );
 
-    // const snapPoint = cond(
-    //     lessThan(diffClampNode, NAV_BAR_HEIGHT / 2),
-    //     0,
-    //     -NAV_BAR_HEIGHT,
-    // );
+    this.animatedNavBarTranslateYLandscape = Animated.interpolate(
+      this.props.scrollY,
+      input,
+      outputTranslateYLandscape,
+      Animated.Extrapolate.CLAMP,
+    );
 
-    // this.animatedNavBarTranslateY = cond(
-    //     // Condition to detect if we stopped scrolling
-    //     neq(this.scrollEndDragVelocity, DRAG_END_INITIAL),
-    //     runSpring({
-    //         clock,
-    //         from: inverseDiffClampNode,
-    //         velocity: 0,
-    //         toValue: snapPoint,
-    //         scrollEndDragVelocity: this.scrollEndDragVelocity,
-    //         snapOffset: this.snapOffset,
-    //         diffClampNode,
-    //     }),
-    //     inverseDiffClampNode,
-    // );
-
-    // this.animatedNavBarTranslateYPortrait = interpolate(this.props.scrollY, {
-    //     // -y means finger is moving upwards (so bar should retract)
-    //     inputRange: [-HEADER_RETRACTION_DISTANCE, HEADER_RETRACTION_DISTANCE],
-    //     outputRange: [HEADER_RETRACTED_HEIGHT, HEADER_REVEALED_HEIGHT],
-
-    //     /* To disable header retraction */
-    //     // outputRange: [HEADER_REVEALED_HEIGHT, HEADER_REVEALED_HEIGHT],
-
-    //     extrapolate: Extrapolate.CLAMP,
-    // });
-
-    // this.animatedNavBarTranslateYLandscape = interpolate(this.props.scrollY, {
-    //   // -y means finger is moving upwards (so bar should retract)
-    //   inputRange: [-HEADER_RETRACTION_DISTANCE, HEADER_RETRACTION_DISTANCE],
-    //   outputRange: [HEADER_HIDDEN_HEIGHT, HEADER_REVEALED_HEIGHT],
-
-    //   /* To disable header retraction */
-    //   // outputRange: [HEADER_REVEALED_HEIGHT, HEADER_REVEALED_HEIGHT],
-
-    //   extrapolate: Extrapolate.CLAMP,
-    // });
-
-    // this.animatedTitleOpacity = interpolate(this.props.scrollY, {
-    //   inputRange: [-HEADER_RETRACTION_DISTANCE, HEADER_RETRACTION_DISTANCE],
-    //   outputRange: [0, 1],
-    //   extrapolate: Extrapolate.CLAMP,
-    // });
+    this.animatedTitleOpacity = Animated.interpolate(
+      this.props.scrollY,
+      input,
+      outputTitleOpacity,
+      Animated.Extrapolate.CLAMP,
+    );
   }
 
   render() {
     return (
-      <SafeAreaConsumer>
+      <SafeAreaInsetsContext.Consumer>
         {(edgeInsets: EdgeInsets) => {
           const {
             config,
@@ -209,7 +189,7 @@ export class RetractibleHeader extends React.Component<
             </Animated.View>
           );
         }}
-      </SafeAreaConsumer>
+      </SafeAreaInsetsContext.Consumer>
     );
   }
 }
