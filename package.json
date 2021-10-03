@@ -16,7 +16,9 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "original_postinstall": "jetify"
+    "original_postinstall": "jetify",
+    "build": "tsc --project ./tsconfig.build.json",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
