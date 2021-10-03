@@ -19,7 +19,7 @@ import {
   DEFAULT_HEADER_REVEALED_HEIGHT,
 } from './TabLocationView';
 import {URL_BAR_VIEW_PADDING_VERTICAL} from './URLBarView';
-// const {interpolate, Extrapolate} = Animated;
+const {interpolate, Extrapolate} = Animated;
 
 interface RetractibleHeaderProps {
   config: HeaderConfig;
@@ -68,14 +68,14 @@ export class RetractibleHeader extends React.Component<
     ];
     const outputTitleOpacity: Array<number> = [0, 1];
 
-    this.animatedNavBarTranslateYPortrait = Animated.interpolate(
+    this.animatedNavBarTranslateYPortrait = interpolate(
       this.props.scrollY,
       input,
       outputTranslateYPortrait,
       Animated.Extrapolate.CLAMP,
     );
 
-    this.animatedNavBarTranslateYLandscape = Animated.interpolate(
+    this.animatedNavBarTranslateYLandscape = interpolate(
       this.props.scrollY,
       input,
       outputTranslateYLandscape,

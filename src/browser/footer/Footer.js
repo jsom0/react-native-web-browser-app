@@ -10,16 +10,20 @@ var __extends =
             d.__proto__ = b;
           }) ||
         function (d, b) {
-          for (var p in b)
-            if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+          for (var p in b) {
+            if (Object.prototype.hasOwnProperty.call(b, p)) {
+              d[p] = b[p];
+            }
+          }
         };
       return extendStatics(d, b);
     };
     return function (d, b) {
-      if (typeof b !== 'function' && b !== null)
+      if (typeof b !== 'function' && b !== null) {
         throw new TypeError(
           'Class extends value ' + String(b) + ' is not a constructor or null',
         );
+      }
       extendStatics(d, b);
       function __() {
         this.constructor = d;
@@ -34,17 +38,21 @@ var __rest =
   (this && this.__rest) ||
   function (s, e) {
     var t = {};
-    for (var p in s)
-      if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+    for (var p in s) {
+      if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) {
         t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === 'function')
+      }
+    }
+    if (s != null && typeof Object.getOwnPropertySymbols === 'function') {
       for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
         if (
           e.indexOf(p[i]) < 0 &&
           Object.prototype.propertyIsEnumerable.call(s, p[i])
-        )
+        ) {
           t[p[i]] = s[p[i]];
+        }
       }
+    }
     return t;
   };
 exports.__esModule = true;
@@ -130,15 +138,17 @@ var Footer = /** @class */ (function (_super) {
               // case RetractionStyle.retractToCompact:
               case BarConfig_1.RetractionStyle.retractToHidden:
                 heightStyle = {
-                  height: interpolate(
-                    _this.props.scrollY,
-                    [-HEADER_RETRACTION_DISTANCE, HEADER_RETRACTION_DISTANCE],
-                    [
+                  height: interpolate(_this.props.scrollY, {
+                    inputRange: [
+                      -HEADER_RETRACTION_DISTANCE,
+                      HEADER_RETRACTION_DISTANCE,
+                    ],
+                    outputRange: [
                       FOOTER_HIDDEN_HEIGHT,
                       add(FOOTER_REVEALED_HEIGHT, unsafeAreaCoverHeight),
                     ],
-                    Extrapolate.CLAMP,
-                  ),
+                    extrapolate: Extrapolate.CLAMP,
+                  }),
                 };
                 break;
               case BarConfig_1.RetractionStyle.alwaysHidden:
@@ -171,7 +181,7 @@ var Footer = /** @class */ (function (_super) {
       );
     }
     // Unclear what footer should do when not showing toolbar...
-    return <react_native_1.View></react_native_1.View>;
+    return <react_native_1.View />;
   };
   return Footer;
 })(React.Component);

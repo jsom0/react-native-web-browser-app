@@ -10,16 +10,20 @@ var __extends =
             d.__proto__ = b;
           }) ||
         function (d, b) {
-          for (var p in b)
-            if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+          for (var p in b) {
+            if (Object.prototype.hasOwnProperty.call(b, p)) {
+              d[p] = b[p];
+            }
+          }
         };
       return extendStatics(d, b);
     };
     return function (d, b) {
-      if (typeof b !== 'function' && b !== null)
+      if (typeof b !== 'function' && b !== null) {
         throw new TypeError(
           'Class extends value ' + String(b) + ' is not a constructor or null',
         );
+      }
       extendStatics(d, b);
       function __() {
         this.constructor = d;
@@ -34,23 +38,28 @@ var __rest =
   (this && this.__rest) ||
   function (s, e) {
     var t = {};
-    for (var p in s)
-      if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+    for (var p in s) {
+      if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) {
         t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === 'function')
+      }
+    }
+    if (s != null && typeof Object.getOwnPropertySymbols === 'function') {
       for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
         if (
           e.indexOf(p[i]) < 0 &&
           Object.prototype.propertyIsEnumerable.call(s, p[i])
-        )
+        ) {
           t[p[i]] = s[p[i]];
+        }
       }
+    }
     return t;
   };
 exports.__esModule = true;
 exports.RetractibleHeaderConnected = exports.RetractibleHeader = void 0;
 var React = require('react');
 var react_native_reanimated_1 = require('react-native-reanimated');
+var interpolate = react_native_reanimated_1.default.interpolateNode;
 var react_native_safe_area_context_1 = require('react-native-safe-area-context');
 var react_redux_1 = require('react-redux');
 var GradientProgressBar_1 = require('../../browser/header/GradientProgressBar');
@@ -58,6 +67,7 @@ var BarConfig_1 = require('../bothBars/BarConfig');
 var Header_1 = require('./Header');
 var TabLocationView_1 = require('./TabLocationView');
 var URLBarView_1 = require('./URLBarView');
+
 // https://github.com/cliqz/user-agent-ios/blob/develop/Client/Frontend/Browser/BrowserViewController.swift#L61
 // Formerly named "NotchAreaCover".
 var RetractibleHeader = /** @class */ (function (_super) {
@@ -86,27 +96,21 @@ var RetractibleHeader = /** @class */ (function (_super) {
       HEADER_REVEALED_HEIGHT,
     ];
     var outputTitleOpacity = [0, 1];
-    _this.animatedNavBarTranslateYPortrait =
-      react_native_reanimated_1.default.interpolateNode(
-        _this.props.scrollY,
-        input,
-        outputTranslateYPortrait,
-        react_native_reanimated_1['default'].Extrapolate.CLAMP,
-      );
-    _this.animatedNavBarTranslateYLandscape =
-      react_native_reanimated_1.default.interpolateNode(
-        _this.props.scrollY,
-        input,
-        outputTranslateYLandscape,
-        react_native_reanimated_1.default.Extrapolate.CLAMP,
-      );
-    _this.animatedTitleOpacity =
-      react_native_reanimated_1.default.interpolateNode(
-        _this.props.scrollY,
-        input,
-        outputTitleOpacity,
-        react_native_reanimated_1.default.Extrapolate.CLAMP,
-      );
+    _this.animatedNavBarTranslateYPortrait = interpolate(_this.props.scrollY, {
+      inputRange: input,
+      outputRange: outputTranslateYPortrait,
+      extrapolate: react_native_reanimated_1.default.Extrapolate.CLAMP,
+    });
+    _this.animatedNavBarTranslateYLandscape = interpolate(_this.props.scrollY, {
+      inputRange: input,
+      outputRange: outputTranslateYLandscape,
+      extrapolate: react_native_reanimated_1.default.Extrapolate.CLAMP,
+    });
+    _this.animatedTitleOpacity = interpolate(_this.props.scrollY, {
+      inputRange: input,
+      outputRange: outputTitleOpacity,
+      extrapolate: react_native_reanimated_1.default.Extrapolate.CLAMP,
+    });
     return _this;
   }
   RetractibleHeader.prototype.render = function () {
@@ -167,20 +171,18 @@ var RetractibleHeader = /** @class */ (function (_super) {
               break;
             case BarConfig_1.RetractionStyle.retractToHidden:
               heightStyle = {
-                height: react_native_reanimated_1['default'].interpolateNode(
-                  _this.animatedNavBarTranslateYLandscape,
-                  {
-                    inputRange: [HEADER_HIDDEN_HEIGHT, HEADER_REVEALED_HEIGHT],
-                    outputRange: [
-                      HEADER_HIDDEN_HEIGHT,
-                      HEADER_REVEALED_HEIGHT +
-                        URLBarView_1.URL_BAR_VIEW_PADDING_VERTICAL * 2 +
-                        edgeInsets.top +
-                        GradientProgressBar_1.GRADIENT_PROGRESS_BAR_HEIGHT,
-                    ],
-                    extrapolate: Extrapolate.CLAMP,
-                  },
-                ),
+                height: interpolate(_this.animatedNavBarTranslateYLandscape, {
+                  inputRange: [HEADER_HIDDEN_HEIGHT, HEADER_REVEALED_HEIGHT],
+                  outputRange: [
+                    HEADER_HIDDEN_HEIGHT,
+                    HEADER_REVEALED_HEIGHT +
+                      URLBarView_1.URL_BAR_VIEW_PADDING_VERTICAL * 2 +
+                      edgeInsets.top +
+                      GradientProgressBar_1.GRADIENT_PROGRESS_BAR_HEIGHT,
+                  ],
+                  extrapolate:
+                    react_native_reanimated_1.default.Extrapolate.CLAMP,
+                }),
               };
               break;
             case BarConfig_1.RetractionStyle.alwaysHidden:
