@@ -57,8 +57,11 @@ export class BarAwareWebView extends React.Component<
   private readonly onLoadStarted = (event: WebViewNavigationEvent) => {
     const {url, navigationType, canGoBack, canGoForward} = event.nativeEvent;
 
+    //TODO: Navigation code goes to here...........
+    // TODO: 1. check previous route = new route if yes then dont do any thing else push to another page
+
     console.log(
-      `[WebView onLoadStarted] url ${url} navigationType ${navigationType}`,
+      `[WebView onLoadStarted] url sssss ${url} navigationType ${navigationType}`,
     );
 
     // TODO: handle errors
