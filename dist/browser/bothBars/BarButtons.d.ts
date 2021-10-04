@@ -10,7 +10,7 @@ declare class BackButton extends React.Component<BackButtonProps & ToolbarButton
     private readonly onTap;
     render(): JSX.Element;
 }
-export declare const BackButtonConnected: import("react-redux").ConnectedComponent<typeof BackButton, import("react-redux").Omit<any, "goBackOnWebView" | "canGoBack">>;
+export declare const BackButtonConnected: import("react-redux").ConnectedComponent<typeof BackButton, import("react-redux").Omit<any, "canGoBack" | "goBackOnWebView">>;
 interface ForwardButtonProps {
     canGoForward: boolean;
     goForwardOnWebView: typeof goForwardOnWebView;
@@ -19,7 +19,7 @@ declare class ForwardButton extends React.Component<ForwardButtonProps & Toolbar
     private readonly onTap;
     render(): JSX.Element;
 }
-export declare const ForwardButtonConnected: import("react-redux").ConnectedComponent<typeof ForwardButton, import("react-redux").Omit<any, "goForwardOnWebView" | "canGoForward">>;
+export declare const ForwardButtonConnected: import("react-redux").ConnectedComponent<typeof ForwardButton, import("react-redux").Omit<any, "canGoForward" | "goForwardOnWebView">>;
 interface StopReloadButtonProps {
     loading: boolean;
     stopWebView: typeof stopWebView;

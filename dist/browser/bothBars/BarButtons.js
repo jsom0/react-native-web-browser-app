@@ -9,7 +9,7 @@ class BackButton extends React.Component {
     };
     render() {
         const { canGoBack, ...rest } = this.props;
-        return (<ToolbarButton {...rest} enabled={canGoBack} onTap={this.onTap} name={"chevron-left"}/>);
+        return (React.createElement(ToolbarButton, { ...rest, enabled: canGoBack, onTap: this.onTap, name: "chevron-left" }));
     }
 }
 export const BackButtonConnected = connect((wholeStoreState) => {
@@ -26,7 +26,7 @@ class ForwardButton extends React.Component {
     };
     render() {
         const { canGoForward, ...rest } = this.props;
-        return (<ToolbarButton {...rest} enabled={canGoForward} onTap={this.onTap} name={"chevron-right"}/>);
+        return (React.createElement(ToolbarButton, { ...rest, enabled: canGoForward, onTap: this.onTap, name: "chevron-right" }));
     }
 }
 export const ForwardButtonConnected = connect((wholeStoreState) => {
@@ -48,11 +48,11 @@ class StopReloadButton extends React.Component {
     };
     render() {
         const { loading, ...rest } = this.props;
-        return (<ToolbarButton {...rest} onTap={this.onTap} name={loading ?
+        return (React.createElement(ToolbarButton, { ...rest, onTap: this.onTap, name: loading ?
                 // Stop (cross symbol)
                 "times" :
                 // Reload (redo symbol)
-                "redo"}/>);
+                "redo" }));
     }
 }
 export const StopReloadButtonConnected = connect((wholeStoreState) => {
@@ -72,7 +72,7 @@ export const StopReloadButtonConnected = connect((wholeStoreState) => {
 class MenuButton extends React.Component {
     render() {
         const { ...rest } = this.props;
-        return (<ToolbarButton {...rest} name={"ellipsis-v"}/>);
+        return (React.createElement(ToolbarButton, { ...rest, name: "ellipsis-v" }));
     }
 }
 export const MenuButtonConnected = connect((wholeStoreState) => {
@@ -83,7 +83,7 @@ export const MenuButtonConnected = connect((wholeStoreState) => {
 class SearchButton extends React.Component {
     render() {
         const { ...rest } = this.props;
-        return (<ToolbarButton {...rest} name={"search"}/>);
+        return (React.createElement(ToolbarButton, { ...rest, name: "search" }));
     }
 }
 export const SearchButtonConnected = connect((wholeStoreState) => {
@@ -95,7 +95,7 @@ export const SearchButtonConnected = connect((wholeStoreState) => {
 class TabsButton extends React.Component {
     render() {
         const { ...rest } = this.props;
-        return (<ToolbarButton {...rest} name={"th-large"}/>);
+        return (React.createElement(ToolbarButton, { ...rest, name: "th-large" }));
     }
 }
 export const TabsButtonConnected = connect((wholeStoreState) => {
@@ -107,9 +107,8 @@ export const TabsButtonConnected = connect((wholeStoreState) => {
 class CancelButton extends React.Component {
     render() {
         const { ...rest } = this.props;
-        return (<TouchableOpacity {...rest}>
-                <Text>Cancel</Text>
-            </TouchableOpacity>);
+        return (React.createElement(TouchableOpacity, { ...rest },
+            React.createElement(Text, null, "Cancel")));
     }
 }
 export const CancelButtonConnected = connect((wholeStoreState) => {

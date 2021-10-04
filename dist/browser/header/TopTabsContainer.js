@@ -6,12 +6,7 @@ export class TopTabsViewController extends React.Component {
     render() {
         return (
         // UIViewController().view
-        <View>
-                {/* topTabFader */}
-                {/* tabsButton */}
-                {/* newTab */}
-                {/* privateModeButton */}
-            </View>);
+        React.createElement(View, null));
     }
 }
 // https://github.com/cliqz/user-agent-ios/blob/develop/Client/Frontend/Browser/BrowserViewController.swift#L128
@@ -19,10 +14,8 @@ export class TopTabsContainer extends React.Component {
     render() {
         return (
         // UIView()
-        <View style={{ flexDirection: "column" }}>
-                {/* topTabsViewController.view */}
-                <TopTabsViewController />
-            </View>);
+        React.createElement(View, { style: { flexDirection: "column" } },
+            React.createElement(TopTabsViewController, null)));
     }
 }
 //# sourceMappingURL=TopTabsContainer.js.map

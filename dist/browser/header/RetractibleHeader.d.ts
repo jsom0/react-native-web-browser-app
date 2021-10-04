@@ -14,17 +14,5 @@ export declare class RetractibleHeader extends React.Component<RetractibleHeader
     constructor(props: RetractibleHeaderProps & Omit<ViewProps, 'orientation'>);
     render(): JSX.Element;
 }
-export declare const RetractibleHeaderConnected: import("react-redux").ConnectedComponent<React.ComponentType<import("react-redux").Matching<{
-    urlBarText: string;
-    orientation: string;
-} & {}, React.ClassAttributes<RetractibleHeader> & RetractibleHeaderProps & Omit<ViewProps, "orientation">>>, import("react-redux").Omit<import("react-redux").Matching<{
-    urlBarText: string;
-    orientation: string;
-} & {}, React.ClassAttributes<RetractibleHeader> & RetractibleHeaderProps & Omit<ViewProps, "orientation">>, "orientation" | "urlBarText"> | import("react-redux").Omit<React.ClassAttributes<React.Component<import("react-redux").Matching<{
-    urlBarText: string;
-    orientation: string;
-} & {}, React.ClassAttributes<RetractibleHeader> & RetractibleHeaderProps & Omit<ViewProps, "orientation">>, any, any>> & import("react-redux").Matching<{
-    urlBarText: string;
-    orientation: string;
-} & {}, React.ClassAttributes<RetractibleHeader> & RetractibleHeaderProps & Omit<ViewProps, "orientation">>, "orientation" | "urlBarText">>;
+export declare const RetractibleHeaderConnected: import("react-redux").ConnectedComponent<typeof RetractibleHeader, import("react-redux").Omit<React.ClassAttributes<RetractibleHeader> & RetractibleHeaderProps & Omit<ViewProps, "orientation">, "orientation" | "urlBarText">>;
 export {};

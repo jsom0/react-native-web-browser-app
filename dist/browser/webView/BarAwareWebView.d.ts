@@ -1,8 +1,8 @@
-import * as React from "react";
-import { updateUrlBarText, TabStateRecord, setProgressOnWebView, updateWebViewNavigationState } from "../../store/navigationState";
-import { ViewProps } from "react-native";
-import Animated from "react-native-reanimated";
-import { HeaderConfig } from "../browserConfig";
+import * as React from 'react';
+import { updateUrlBarText, TabStateRecord, setProgressOnWebView, updateWebViewNavigationState } from '../../store/navigationState';
+import { ViewProps } from 'react-native';
+import Animated from 'react-native-reanimated';
+import { HeaderConfig } from '../browserConfig';
 export declare type BarAwareWebViewType = (props: BarAwareWebViewOwnProps) => React.ReactNode;
 export interface BarAwareWebViewOwnProps {
     headerConfig: HeaderConfig;
@@ -25,4 +25,4 @@ export declare class BarAwareWebView extends React.Component<BarAwareWebViewProp
     private readonly onProgress;
     render(): JSX.Element;
 }
-export declare const BarAwareWebViewConnected: import("react-redux").ConnectedComponent<typeof BarAwareWebView, import("react-redux").Omit<React.ClassAttributes<BarAwareWebView> & BarAwareWebViewOwnProps & BarAwareWebViewConnectedProps & ViewProps, "updateUrlBarText" | "updateWebViewNavigationState" | "setProgressOnWebView" | "activeTab" | "tabs">>;
+export declare const BarAwareWebViewConnected: import("react-redux").ConnectedComponent<typeof BarAwareWebView, import("react-redux").Omit<React.ClassAttributes<BarAwareWebView> & BarAwareWebViewOwnProps & BarAwareWebViewConnectedProps & ViewProps, "updateUrlBarText" | "setProgressOnWebView" | "updateWebViewNavigationState" | "activeTab" | "tabs">>;

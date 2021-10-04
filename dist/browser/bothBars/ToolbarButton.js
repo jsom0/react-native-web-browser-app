@@ -16,7 +16,7 @@ export class ToolbarButton extends React.Component {
             light,
             brand
         };
-        return (<AnimatedTouchableOpacity onPress={onTap} disabled={!enabled} style={[
+        return (React.createElement(AnimatedTouchableOpacity, { onPress: onTap, disabled: !enabled, style: [
                 {
                     width: 30,
                     height: 30,
@@ -26,13 +26,11 @@ export class ToolbarButton extends React.Component {
                     // margin: 10
                 },
                 containerStyle
-            ]} {...rest}>
-                <Icon style={{
-            // padding: 9,
-            // fontFamily: "Font Awesome 5 Free",
-            }} color={enabled ? enabledColor : disabledColor} size={20} {...assertOnlyOneVariantInProps} name={name}>
-                </Icon>
-            </AnimatedTouchableOpacity>);
+            ], ...rest },
+            React.createElement(Icon, { style: {
+                // padding: 9,
+                // fontFamily: "Font Awesome 5 Free",
+                }, color: enabled ? enabledColor : disabledColor, size: 20, ...assertOnlyOneVariantInProps, name: name })));
     }
 }
 //# sourceMappingURL=ToolbarButton.js.map

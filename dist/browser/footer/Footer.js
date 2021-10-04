@@ -20,53 +20,46 @@ export class Footer extends React.Component {
         if (showToolbar) {
             /* Warning: I've tried other layouts (StackLayout and FlexboxLayout) here, but they shift
              * horizontally after rotation. Only ContentView seems to escape this bug. */
-            return (<SafeAreaInsetsContext.Consumer>
-          {(edgeInsets) => {
-                    const unsafeAreaCoverHeight = edgeInsets.bottom;
-                    let heightStyle;
-                    switch (retractionStyle) {
-                        case RetractionStyle.alwaysRevealed:
-                            heightStyle = {
-                                // height: "auto",
-                                height: FOOTER_REVEALED_HEIGHT + unsafeAreaCoverHeight,
-                            };
-                            break;
-                        // case RetractionStyle.retractToCompact:
-                        case RetractionStyle.retractToHidden:
-                            heightStyle = {
-                                height: interpolateNode(this.props.scrollY, [-HEADER_RETRACTION_DISTANCE, HEADER_RETRACTION_DISTANCE], [
-                                    FOOTER_HIDDEN_HEIGHT,
-                                    add(FOOTER_REVEALED_HEIGHT, unsafeAreaCoverHeight),
-                                ], Extrapolate.CLAMP),
-                            };
-                            break;
-                        case RetractionStyle.alwaysHidden:
-                            heightStyle = {
-                                height: FOOTER_HIDDEN_HEIGHT,
-                            };
-                    }
-                    return (<Animated.View style={[
-                            {
-                                flexDirection: 'column',
-                                width: '100%',
-                                backgroundColor,
-                                /* Combine this with auto height. */
-                                // paddingBottom: unsafeAreaCoverHeight,
-                                paddingLeft: edgeInsets.left,
-                                paddingRight: edgeInsets.right,
-                            },
-                            heightStyle,
-                        ]} 
-                    // height={{ value: animatedHeight, unit: "dip" }}
-                    {...rest}>
-                {contentView({ config })}
-                {/* <ContentView config={config}/> */}
-              </Animated.View>);
-                }}
-        </SafeAreaInsetsContext.Consumer>);
+            return (React.createElement(SafeAreaInsetsContext.Consumer, null, (edgeInsets) => {
+                const unsafeAreaCoverHeight = edgeInsets.bottom;
+                let heightStyle;
+                switch (retractionStyle) {
+                    case RetractionStyle.alwaysRevealed:
+                        heightStyle = {
+                            // height: "auto",
+                            height: FOOTER_REVEALED_HEIGHT + unsafeAreaCoverHeight,
+                        };
+                        break;
+                    // case RetractionStyle.retractToCompact:
+                    case RetractionStyle.retractToHidden:
+                        heightStyle = {
+                            height: interpolateNode(this.props.scrollY, [-HEADER_RETRACTION_DISTANCE, HEADER_RETRACTION_DISTANCE], [
+                                FOOTER_HIDDEN_HEIGHT,
+                                add(FOOTER_REVEALED_HEIGHT, unsafeAreaCoverHeight),
+                            ], Extrapolate.CLAMP),
+                        };
+                        break;
+                    case RetractionStyle.alwaysHidden:
+                        heightStyle = {
+                            height: FOOTER_HIDDEN_HEIGHT,
+                        };
+                }
+                return (React.createElement(Animated.View, { style: [
+                        {
+                            flexDirection: 'column',
+                            width: '100%',
+                            backgroundColor,
+                            /* Combine this with auto height. */
+                            // paddingBottom: unsafeAreaCoverHeight,
+                            paddingLeft: edgeInsets.left,
+                            paddingRight: edgeInsets.right,
+                        },
+                        heightStyle,
+                    ], ...rest }, contentView({ config })));
+            }));
         }
         // Unclear what footer should do when not showing toolbar...
-        return <View></View>;
+        return React.createElement(View, null);
     }
 }
 export const FooterConnected = connect((wholeStoreState) => {

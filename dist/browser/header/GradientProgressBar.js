@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import { Animated } from "react-native";
-export const defaultGradientProgressBar = (props) => <GradientProgressBarConnected {...props}/>;
+export const defaultGradientProgressBar = (props) => React.createElement(GradientProgressBarConnected, { ...props });
 export const GRADIENT_PROGRESS_BAR_HEIGHT = 2;
 // https://github.com/cliqz/user-agent-ios/blob/develop/Client/Frontend/Browser/TabLocationView.swift
 class GradientProgressBar extends React.Component {
@@ -45,31 +45,27 @@ class GradientProgressBar extends React.Component {
     render() {
         const { progress, trackColor = "blue", ...rest } = this.props;
         // console.log(`[GradientProgressBar] rendering with progress ${progress}`);
-        return (<Animated.View style={{
+        return (React.createElement(Animated.View, { style: {
                 flexDirection: "row",
                 // Or is it justifyContent?
                 alignItems: "flex-start",
                 width: "100%",
                 height: "auto",
                 backgroundColor: "transparent",
-            }} 
-        // This is declared in app/components/AppContainer.scss
-        // className={progress === 1 ? "fade-out-anim" : ""}
-        {...rest}>
-                <Animated.View style={{
-                height: GRADIENT_PROGRESS_BAR_HEIGHT,
-                backgroundColor: trackColor,
-                width: this.state.barWidth.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ['0%', '100%'],
-                }),
-                opacity: this.state.barOpacity.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, 1],
-                }),
-                // opacity: progress === 1 ? 0 : 1,
-            }}/>
-            </Animated.View>);
+            }, ...rest },
+            React.createElement(Animated.View, { style: {
+                    height: GRADIENT_PROGRESS_BAR_HEIGHT,
+                    backgroundColor: trackColor,
+                    width: this.state.barWidth.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: ['0%', '100%'],
+                    }),
+                    opacity: this.state.barOpacity.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, 1],
+                    }),
+                    // opacity: progress === 1 ? 0 : 1,
+                } })));
     }
 }
 export const GradientProgressBarConnected = connect((wholeStoreState) => {

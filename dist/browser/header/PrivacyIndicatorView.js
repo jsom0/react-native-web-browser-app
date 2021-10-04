@@ -4,7 +4,7 @@ import { ToolbarButton } from "../../browser/bothBars/ToolbarButton";
 export class PrivacyIndicatorView extends React.Component {
     render() {
         const { ...rest } = this.props;
-        return (<ToolbarButton name={"circle-notch"} {...rest}/>
+        return (React.createElement(ToolbarButton, { name: "circle-notch", ...rest })
         // <$StackLayout>
         //     {/* stub for canvasView, which is that donut graph. */}
         //     <$ContentView/>
