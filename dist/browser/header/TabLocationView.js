@@ -20,7 +20,7 @@ class LockImageView extends React.Component {
         const { locked, ...rest } = this.props;
         return (
         // <$Image/>
-        React.createElement(ToolbarButton, { name: locked ? "lock" : "lock-open", ...rest }));
+        <ToolbarButton name={locked ? "lock" : "lock-open"} {...rest}/>);
     }
 }
 class ClearUrlBarTextButton extends React.Component {
@@ -29,7 +29,7 @@ class ClearUrlBarTextButton extends React.Component {
     };
     render() {
         const { urlBarText, light, brand, ...rest } = this.props;
-        return (React.createElement(ToolbarButton, { onPress: this.onClearButtonPress, name: "times-circle", solid: true, ...rest }));
+        return (<ToolbarButton onPress={this.onClearButtonPress} name={"times-circle"} solid {...rest}/>);
     }
 }
 const ClearUrlBarTextButtonConnected = connect((wholeStoreState) => {
@@ -51,11 +51,11 @@ class DisplayTextField extends React.Component {
     };
     render() {
         const { urlBarText, style, ...rest } = this.props;
-        return (React.createElement(TextInput, { style: StyleSheet.compose({
+        return (<TextInput style={StyleSheet.compose({
                 /* Note: I suspect that Safari may use fontSize 16. */
                 fontSize: 18,
                 flex: 1,
-            }, style), ...rest, value: urlBarText, autoCorrect: false, autoCapitalize: "none", keyboardType: "url", returnKeyType: "go", onChangeText: this.onChangeText, placeholder: "Search or enter address", onSubmitEditing: this.onSubmitEditing }));
+            }, style)} {...rest} value={urlBarText} autoCorrect={false} autoCapitalize={"none"} keyboardType={"url"} returnKeyType={"go"} onChangeText={this.onChangeText} placeholder={"Search or enter address"} onSubmitEditing={this.onSubmitEditing}/>);
     }
 }
 const DisplayTextFieldConnected = connect((wholeStoreState) => {
@@ -73,7 +73,7 @@ const DisplayTextFieldConnected = connect((wholeStoreState) => {
 class UrlTextField extends React.Component {
     render() {
         const { ...rest } = this.props;
-        return (React.createElement(DisplayTextFieldConnected, { ...rest })
+        return (<DisplayTextFieldConnected {...rest}/>
         // <DisplayTextField urlBarText={"whatever"} {...rest}/>
         );
     }
@@ -82,14 +82,14 @@ class UrlTextField extends React.Component {
 class PageOptionsButton extends React.Component {
     render() {
         const { ...rest } = this.props;
-        return (React.createElement(ToolbarButton, { ...rest, name: "ellipsis-h" }));
+        return (<ToolbarButton {...rest} name={"ellipsis-h"}/>);
     }
 }
 // https://github.com/cliqz/user-agent-ios/blob/develop/Client/Frontend/Browser/TabLocationView.swift#L105
 class PrivacyIndicator extends React.Component {
     render() {
         const { ...rest } = this.props;
-        return (React.createElement(PrivacyIndicatorView, { ...rest }));
+        return (<PrivacyIndicatorView {...rest}/>);
     }
 }
 export const DEFAULT_HEADER_RETRACTED_HEIGHT = 22;
@@ -146,7 +146,7 @@ export class TabLocationView extends React.Component {
         /* self.contentView */
         /* https://github.com/cliqz/user-agent-ios/blob/develop/Client/Frontend/Browser/TabLocationView.swift#L149 */
         /* https://developer.apple.com/documentation/uikit/uistackview */
-        React.createElement(Animated.View, { style: [
+        <Animated.View style={[
                 {
                     flexDirection: "row",
                     alignItems: "center",
@@ -162,53 +162,63 @@ export class TabLocationView extends React.Component {
                     // backgroundColor: "indigo",
                 },
                 heightStyle
-            ] },
-            React.createElement(Animated.View, { style: {
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: 10,
-                    backgroundColor: slotBackgroundColor,
-                    opacity: scaleFactor,
-                } }),
-            React.createElement(View, { style: { width: TabLocationViewUX.Spacing } }),
-            React.createElement(PrivacyIndicator, { enabledColor: buttonEnabledColor, disabledColor: buttonDisabledColor, containerStyle: {
-                    transform: [
-                        { scaleX: scaleFactor },
-                        { scaleY: scaleFactor },
-                    ],
-                } }),
-            React.createElement(View, { style: { width: 3 } }),
-            React.createElement(LockImageView, { enabledColor: buttonEnabledColor, disabledColor: buttonDisabledColor, locked: !!activeTabIsSecure, containerStyle: {
-                    /* I'm not sure how ftp:// and sftp:// links are usually represented, so we'll hide the lock altogether. */
-                    display: activeTabIsSecure === null ? "none" : "flex",
-                    /* Nothing to do with animation; just my lazy way of making it more compact. */
-                    transform: [
-                        { scaleX: 0.66 },
-                        { scaleY: 0.66 },
-                    ]
-                } }),
-            React.createElement(UrlTextField, { style: {
-                    color: textFieldTextColor,
-                    backgroundColor: textFieldBackgroundColor,
-                    flexGrow: 1,
-                } }),
-            React.createElement(ClearUrlBarTextButtonConnected, { containerStyle: {
-                    /* TODO: hide this button altogether in compact mode. */
-                    display: urlBarText.length > 0 ? "flex" : "none",
-                    /* Nothing to do with animation; just my lazy way of making it more compact. */
-                    transform: [
-                        { scaleX: 0.80 },
-                        { scaleY: 0.80 },
-                    ]
-                } }),
-            React.createElement(PageOptionsButton, { enabledColor: buttonEnabledColor, disabledColor: buttonDisabledColor, containerStyle: {
-                    transform: [
-                        { scaleX: scaleFactor },
-                        { scaleY: scaleFactor },
-                    ],
-                } }),
-            React.createElement(View, { style: { width: TabLocationViewUX.Spacing } })));
+            ]}>
+                {/* Simplest way to animate a backgroundColor fade-out with nativeDriver: introduce a backdrop view. */}
+                <Animated.View style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                borderRadius: 10,
+                backgroundColor: slotBackgroundColor,
+                opacity: scaleFactor,
+            }}/>
+
+                {/* frontSpaceView */}
+                <View style={{ width: TabLocationViewUX.Spacing }}/>
+
+                {/* privacyIndicator */}
+                <PrivacyIndicator enabledColor={buttonEnabledColor} disabledColor={buttonDisabledColor} containerStyle={{
+                transform: [
+                    { scaleX: scaleFactor },
+                    { scaleY: scaleFactor },
+                ],
+            }}/>
+                
+                {/* privacyIndicatorSeparator */}
+                <View style={{ width: 3 }}/>
+                <LockImageView enabledColor={buttonEnabledColor} disabledColor={buttonDisabledColor} locked={!!activeTabIsSecure} containerStyle={{
+                /* I'm not sure how ftp:// and sftp:// links are usually represented, so we'll hide the lock altogether. */
+                display: activeTabIsSecure === null ? "none" : "flex",
+                /* Nothing to do with animation; just my lazy way of making it more compact. */
+                transform: [
+                    { scaleX: 0.66 },
+                    { scaleY: 0.66 },
+                ]
+            }}/>
+                <UrlTextField style={{
+                color: textFieldTextColor,
+                backgroundColor: textFieldBackgroundColor,
+                flexGrow: 1,
+            }}/>
+                <ClearUrlBarTextButtonConnected containerStyle={{
+                /* TODO: hide this button altogether in compact mode. */
+                display: urlBarText.length > 0 ? "flex" : "none",
+                /* Nothing to do with animation; just my lazy way of making it more compact. */
+                transform: [
+                    { scaleX: 0.80 },
+                    { scaleY: 0.80 },
+                ]
+            }}/>
+                <PageOptionsButton enabledColor={buttonEnabledColor} disabledColor={buttonDisabledColor} containerStyle={{
+                transform: [
+                    { scaleX: scaleFactor },
+                    { scaleY: scaleFactor },
+                ],
+            }}/>
+
+                {/* Another spacer view */}
+                <View style={{ width: TabLocationViewUX.Spacing }}/>
+            </Animated.View>);
     }
 }
 export const TabLocationViewConnected = connect((wholeStoreState) => {

@@ -1,5 +1,5 @@
 package com.reactnativewebbrowserapp;
-import com.myapp.generated.BasePackageList;
+import com.reactnativewebbrowserapp.generated.BasePackageList;
 
 import android.app.Application;
 import android.content.Context;

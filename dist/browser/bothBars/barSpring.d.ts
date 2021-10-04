@@ -1,4 +1,4 @@
-import Animated from "react-native-reanimated";
+import Animated from 'react-native-reanimated';
 export declare const DRAG_END_INITIAL: number;
 export declare const NAV_BAR_HEIGHT: number;
 export declare function runSpring({ clock, from, velocity, toValue, scrollEndDragVelocity, snapOffset, diffClampNode, }: {

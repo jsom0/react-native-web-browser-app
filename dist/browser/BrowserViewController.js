@@ -39,41 +39,44 @@ export class BrowserViewController extends React.Component {
         const { barAwareWebView = DefaultBarAwareWebView } = config;
         // Visibility of certain components changes when switching app (if in private browsing mode)
         // https://github.com/cliqz/user-agent-ios/blob/develop/Client/Frontend/Browser/BrowserViewController.swift#L343
-        return (React.createElement(View
+        return (<View 
         // stretchLastChild={true}
-        , { 
-            // stretchLastChild={true}
-            style: {
+        style={{
                 flex: 1,
                 flexDirection: 'column',
                 width: '100%',
                 height: '100%',
-            } },
-            React.createElement(RetractibleHeaderConnected, { config: config.header, scrollY: this.scrollY }),
-            React.createElement(View, { style: {
-                    flex: 1,
-                    width: '100%',
-                    height: '100%',
-                    flexGrow: 1,
-                    alignItems: 'center',
-                    backgroundColor: 'green',
-                    flexDirection: 'column',
-                } },
-                React.createElement(View, { style: {
-                        flex: 1,
-                        flexDirection: 'column',
-                        width: '100%',
-                    } },
-                    React.createElement(WebViewBackdrop, { style: {
-                            backgroundColor: 'gold',
-                            position: 'absolute',
-                        } }),
-                    barAwareWebView({
-                        headerConfig: config.header,
-                        scrollY: this.scrollY,
-                        scrollEndDragVelocity: this.scrollEndDragVelocity,
-                    })),
-                React.createElement(FooterConnected, { config: config.footer, scrollY: this.scrollY, showToolbar: true }))));
+            }}>
+        <RetractibleHeaderConnected config={config.header} scrollY={this.scrollY}/>
+
+        <View style={{
+                flex: 1,
+                width: '100%',
+                height: '100%',
+                flexGrow: 1,
+                alignItems: 'center',
+                backgroundColor: 'green',
+                flexDirection: 'column',
+            }}>
+          <View style={{
+                flex: 1,
+                flexDirection: 'column',
+                width: '100%',
+            }}>
+            <WebViewBackdrop style={{
+                backgroundColor: 'gold',
+                position: 'absolute',
+            }}/>
+            {barAwareWebView({
+                headerConfig: config.header,
+                scrollY: this.scrollY,
+                scrollEndDragVelocity: this.scrollEndDragVelocity,
+            })}
+          </View>
+
+          <FooterConnected config={config.footer} scrollY={this.scrollY} showToolbar={true}/>
+        </View>
+      </View>);
     }
 }
 export const BrowserViewControllerConnected = connect((wholeStoreState) => {

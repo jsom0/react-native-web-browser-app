@@ -1,5 +1,5 @@
-import Animated from "react-native-reanimated";
-const { diffClamp, interpolate, event: reanimatedEvent, multiply, add, cond, lessThan, neq, Clock, Extrapolate, clockRunning, set, startClock, spring, sub, stopClock, eq } = Animated;
+import Animated from 'react-native-reanimated';
+const { diffClamp, interpolateNode, event: reanimatedEvent, multiply, add, cond, lessThan, neq, Clock, Extrapolate, clockRunning, set, startClock, spring, sub, stopClock, eq, } = Animated;
 export const DRAG_END_INITIAL = 10000000;
 export const NAV_BAR_HEIGHT = 44;
 // https://github.com/rgommezz/reanimated-collapsible-navbar/blob/master/App.js#L36

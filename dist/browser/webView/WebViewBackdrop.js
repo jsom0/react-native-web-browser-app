@@ -6,11 +6,14 @@ export class WebViewBackdrop extends React.Component {
         const { style, children, ...rest } = this.props;
         return (
         // UIView()
-        React.createElement(View, { style: StyleSheet.compose({
+        <View style={StyleSheet.compose({
                 flexDirection: "column",
                 width: "100%",
                 height: "100%",
-            }, style), ...rest }));
+            }, style)} 
+        // opacity={0.5}
+        // backgroundColor={"purple"}
+        {...rest}/>);
     }
 }
 //# sourceMappingURL=WebViewBackdrop.js.map
