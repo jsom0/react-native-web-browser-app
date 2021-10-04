@@ -59,6 +59,19 @@ export class BarAwareWebView extends React.Component<
 
     //TODO: Navigation code goes to here...........
     // TODO: 1. check previous route = new route if yes then dont do any thing else push to another page
+    if (url === 'https://www.birchlabs.co.uk/') {
+      this.props.navigation.navigate('Home');
+    } else if (url === 'https://birchlabs.co.uk/games') {
+      this.props.navigation.navigate('Games');
+    } else if (url === 'https://birchlabs.co.uk/experiments') {
+      this.props.navigation.navigate('Experiments');
+    } else if (url === 'https://birchlabs.co.uk/blog/') {
+      this.props.navigation.navigate('Blog');
+    } else if (url === 'https://birchlabs.co.uk/music') {
+      this.props.navigation.navigate('Music');
+    } else {
+      this.props.navigation.navigate('About');
+    }
 
     console.log(
       `[WebView onLoadStarted] url sssss ${url} navigationType ${navigationType}`,

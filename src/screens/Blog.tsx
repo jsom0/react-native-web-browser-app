@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const Home = ({webView}) => {
-  console.log('========This is Home=======');
+const Blog = ({webView}) => {
+  console.log('========This is Blog=======');
   return <>{webView}</>;
 };
 
-export default Home;
+export default Blog;

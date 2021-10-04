@@ -14,6 +14,13 @@ import {
 } from './header/TabLocationView';
 import {DefaultBarAwareWebView} from './webView/BarAwareWebView';
 import {WebViewBackdrop} from './webView/WebViewBackdrop';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Home from '../screens/Home.tsx';
+import About from '../screens/About.tsx';
+import Blog from '../screens/Blog.tsx';
+import Experiments from '../screens/Experiments.tsx';
+import Games from '../screens/Games.tsx';
+import Music from '../screens/Music.tsx';
 
 const BrowserViewControllerUX = {
   ShowHeaderTapAreaHeight: 0,
@@ -102,6 +109,8 @@ export class BrowserViewController extends React.Component<Props, State> {
     // Visibility of certain components changes when switching app (if in private browsing mode)
     // https://github.com/cliqz/user-agent-ios/blob/develop/Client/Frontend/Browser/BrowserViewController.swift#L343
 
+    const Stack = createNativeStackNavigator();
+
     return (
       <View
         // stretchLastChild={true}
@@ -138,11 +147,97 @@ export class BrowserViewController extends React.Component<Props, State> {
                 position: 'absolute',
               }}
             />
-            {barAwareWebView({
+            {/* {barAwareWebView({
               headerConfig: config.header,
               scrollY: this.scrollY,
               scrollEndDragVelocity: this.scrollEndDragVelocity,
-            })}
+            })} */}
+            <Stack.Navigator
+              initialRouteName="Home"
+              screenOptions={{
+                headerShown: false,
+              }}>
+              {/* <Stack.Screen name="Home" component={Home} /> */}
+              <Stack.Screen name="Home">
+                {props => (
+                  <Home
+                    {...props}
+                    webView={barAwareWebView({
+                      headerConfig: config.header,
+                      scrollY: this.scrollY,
+                      scrollEndDragVelocity: this.scrollEndDragVelocity,
+                      navigation: props.navigation,
+                    })}
+                  />
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="About">
+                {props => (
+                  <About
+                    {...props}
+                    webView={barAwareWebView({
+                      headerConfig: config.header,
+                      scrollY: this.scrollY,
+                      scrollEndDragVelocity: this.scrollEndDragVelocity,
+                      navigation: props.navigation,
+                    })}
+                  />
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Blog">
+                {props => (
+                  <Blog
+                    {...props}
+                    webView={barAwareWebView({
+                      headerConfig: config.header,
+                      scrollY: this.scrollY,
+                      scrollEndDragVelocity: this.scrollEndDragVelocity,
+                      navigation: props.navigation,
+                    })}
+                  />
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Experiments">
+                {props => (
+                  <Experiments
+                    {...props}
+                    webView={barAwareWebView({
+                      headerConfig: config.header,
+                      scrollY: this.scrollY,
+                      scrollEndDragVelocity: this.scrollEndDragVelocity,
+                      navigation: props.navigation,
+                    })}
+                  />
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Games">
+                {props => (
+                  <Games
+                    {...props}
+                    webView={barAwareWebView({
+                      headerConfig: config.header,
+                      scrollY: this.scrollY,
+                      scrollEndDragVelocity: this.scrollEndDragVelocity,
+                      navigation: props.navigation,
+                    })}
+                  />
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Music">
+                {props => (
+                  <Music
+                    {...props}
+                    webView={barAwareWebView({
+                      headerConfig: config.header,
+                      scrollY: this.scrollY,
+                      scrollEndDragVelocity: this.scrollEndDragVelocity,
+                      navigation: props.navigation,
+                    })}
+                  />
+                )}
+              </Stack.Screen>
+              {/* <Stack.Screen name="Details" component={DetailsScreen} /> */}
+            </Stack.Navigator>
           </View>
 
           <FooterConnected
