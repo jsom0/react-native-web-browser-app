@@ -17,8 +17,8 @@
     "test": "jest",
     "lint": "eslint .",
     "original_postinstall": "jetify",
-    "build": "tsc --project ./tsconfig.build.json --watch",
-    "build-ts": "tsc --watch",
+    "build-ts": "tsc --project ./tsconfig.build.json --watch",
+    "build": "tsc --watch",
     "prepare": "npm run build"
   },
   "repository": {
