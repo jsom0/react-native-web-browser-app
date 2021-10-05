@@ -73,7 +73,7 @@ interface Props {
 
 interface State {}
 
-export class BrowserViewController extends React.Component<Props, State> {
+export class Experiments extends React.Component<Props, State> {
   private readonly scrollY;
   private readonly scrollEndDragVelocity = new Animated.Value(DRAG_END_INITIAL);
 
@@ -160,7 +160,7 @@ export class BrowserViewController extends React.Component<Props, State> {
               headerConfig: config.header,
               scrollY: this.scrollY,
               scrollEndDragVelocity: this.scrollEndDragVelocity,
-              URL: 'https://birchlabs.co.uk/',
+              URL: 'https://birchlabs.co.uk/experiments',
               navigation: this.props.navigation,
             })}
           </View>
@@ -184,4 +184,4 @@ export const BrowserViewControllerConnected = connect(
   {
     updateOrientation: updateOrientation,
   },
-)(BrowserViewController);
+)(Experiments);
