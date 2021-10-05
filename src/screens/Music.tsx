@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, Text} from 'react-native';
 
 const Music = ({webView}) => {
@@ -6,4 +6,4 @@ const Music = ({webView}) => {
   return <>{webView}</>;
 };
 
-export default Music;
+export default memo(Music);

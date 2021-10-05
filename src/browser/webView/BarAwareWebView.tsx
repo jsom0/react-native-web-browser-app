@@ -8,7 +8,7 @@ import {
   setProgressOnWebView,
   updateWebViewNavigationState,
 } from '../../store/navigationState';
-import {ViewProps, Platform, ViewStyle} from 'react-native';
+import {ViewProps, Platform, ViewStyle, View, Text} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {
   IOSWebViewProps,
@@ -30,6 +30,7 @@ export interface BarAwareWebViewOwnProps {
   headerConfig: HeaderConfig;
   scrollY: Animated.Value<number>;
   scrollEndDragVelocity: Animated.Value<number>;
+  navigation: any;
 }
 export interface BarAwareWebViewConnectedProps {
   updateUrlBarText: typeof updateUrlBarText;
@@ -54,35 +55,39 @@ export class BarAwareWebView extends React.Component<
   BarAwareWebViewProps & ViewProps,
   {}
 > {
+  // constructor{
+  //   console.log(props.route.params)
+  // }
+
   private readonly onLoadStarted = (event: WebViewNavigationEvent) => {
     const {url, navigationType, canGoBack, canGoForward} = event.nativeEvent;
 
     //TODO: Navigation code goes to here...........
     // TODO: 1. check previous route = new route if yes then dont do any thing else push to another page
-    if (url === 'https://www.birchlabs.co.uk/') {
-      this.props.navigation.navigate('Home');
-    } else if (url === 'https://birchlabs.co.uk/games') {
-      this.props.navigation.navigate('Games');
-    } else if (url === 'https://birchlabs.co.uk/experiments') {
-      this.props.navigation.navigate('Experiments');
-    } else if (url === 'https://birchlabs.co.uk/blog/') {
-      this.props.navigation.navigate('Blog');
-    } else if (url === 'https://birchlabs.co.uk/music') {
-      this.props.navigation.navigate('Music');
-    } else {
-      this.props.navigation.navigate('About');
-    }
+    // if (url === 'https://www.birchlabs.co.uk/') {
+    //   this.props.navigation.navigate('Home');
+    // } else if (url === 'https://birchlabs.co.uk/games') {
+    //   this.props.navigation.navigate('Games');
+    // } else if (url === 'https://birchlabs.co.uk/experiments') {
+    //   this.props.navigation.navigate('Experiments');
+    // } else if (url === 'https://birchlabs.co.uk/blog/') {
+    //   this.props.navigation.navigate('Blog');
+    // } else if (url === 'https://birchlabs.co.uk/music') {
+    //   this.props.navigation.navigate('Music');
+    // } else {
+    //   this.props.navigation.navigate('About');
+    // }
 
     console.log(
       `[WebView onLoadStarted] url sssss ${url} navigationType ${navigationType}`,
     );
 
     // TODO: handle errors
-    this.props.updateWebViewNavigationState({
-      canGoBack,
-      canGoForward,
-      tab: this.props.activeTab,
-    });
+    // this.props.updateWebViewNavigationState({
+    //   canGoBack,
+    //   canGoForward,
+    //   tab: this.props.activeTab,
+    // });
   };
 
   private readonly onLoadCommitted = (event: WebViewNavigationEvent) => {
@@ -92,16 +97,16 @@ export class BarAwareWebView extends React.Component<
       `[WebView onLoadCommitted] url ${url} navigationType ${navigationType}`,
     );
 
-    if (Platform.OS === 'ios' || Platform.OS === 'macos') {
-      /* iOS seems to fire loading events on the non-main frame, so onLoadCommitted event is the best one on which to update the main-frame URL.
-       * This event doesn't exist on Android to my knowledge, so I haven't hooked it up in BetterWebView. */
-      this.props.updateUrlBarText({text: url, fromNavigationEvent: true});
-    }
-    this.props.updateWebViewNavigationState({
-      canGoBack,
-      canGoForward,
-      tab: this.props.activeTab,
-    });
+    // if (Platform.OS === 'ios' || Platform.OS === 'macos') {
+    //   /* iOS seems to fire loading events on the non-main frame, so onLoadCommitted event is the best one on which to update the main-frame URL.
+    //    * This event doesn't exist on Android to my knowledge, so I haven't hooked it up in BetterWebView. */
+    //   this.props.updateUrlBarText({text: url, fromNavigationEvent: true});
+    // }
+    // this.props.updateWebViewNavigationState({
+    //   canGoBack,
+    //   canGoForward,
+    //   tab: this.props.activeTab,
+    // });
   };
 
   private readonly onLoadFinished = (event: WebViewNavigationEvent) => {
@@ -110,30 +115,38 @@ export class BarAwareWebView extends React.Component<
     console.log(
       `[WebView onLoadFinished] url ${url} navigationType ${navigationType}`,
     );
+    const pathArr = url.split('/');
+    const path = pathArr[pathArr.length - 1];
 
+    // setTimeout(() => {
+    this.props.navigation.navigate(path, {url});
+    // return;
+    // }, 800);
+
+    console.log('Path:   ', path, pathArr);
     // TODO: handle errors
 
-    if (Platform.OS === 'android') {
-      /* TODO: check whether Android fires onLoadFinished at sensible moments for updating the URL bar text. */
-      this.props.updateUrlBarText({text: url, fromNavigationEvent: true});
-    }
-    this.props.updateWebViewNavigationState({
-      canGoBack,
-      canGoForward,
-      tab: this.props.activeTab,
-    });
+    // if (Platform.OS === 'android') {
+    //   /* TODO: check whether Android fires onLoadFinished at sensible moments for updating the URL bar text. */
+    //   this.props.updateUrlBarText({text: url, fromNavigationEvent: true});
+    // }
+    // this.props.updateWebViewNavigationState({
+    //   canGoBack,
+    //   canGoForward,
+    //   tab: this.props.activeTab,
+    // });
   };
 
   private readonly onProgress = (event: WebViewProgressEvent) => {
     const {url, progress, canGoBack, canGoForward} = event.nativeEvent;
     console.log(`[WebView onLoadProgress] progress ${progress}`);
 
-    this.props.setProgressOnWebView({progress, tab: this.props.activeTab});
-    this.props.updateWebViewNavigationState({
-      canGoBack,
-      canGoForward,
-      tab: this.props.activeTab,
-    });
+    // this.props.setProgressOnWebView({progress, tab: this.props.activeTab});
+    // this.props.updateWebViewNavigationState({
+    //   canGoBack,
+    //   canGoForward,
+    //   tab: this.props.activeTab,
+    // });
   };
 
   // const MyWebView = ({ children, ...rest }) => React.createElement(WebView, props, children);
@@ -147,7 +160,11 @@ export class BarAwareWebView extends React.Component<
     } = headerConfig;
     const HEADER_RETRACTION_DISTANCE: number =
       HEADER_REVEALED_HEIGHT - HEADER_RETRACTED_HEIGHT;
-
+    // return (
+    //   <View>
+    //     <Text>hii</Text>
+    //   </View>
+    // );
     return (
       <AnimatedIosWebView
         source={{
@@ -155,61 +172,61 @@ export class BarAwareWebView extends React.Component<
         }}
         // TODO: will have to solve how best to build one webView for each tab, give it a unique ref, and allow animation between tabs.
         ref={webViews.get(activeTab)}
-        onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {
-                panGestureTranslationInWebView: {
-                  // y: this.props.scrollY,
-                  y: y => {
-                    return Animated.block([
-                      Animated.cond(
-                        /* We won't update scrollY if there was no panGesture movement.
-                         * This is necessary because onScroll is called without gestures
-                         * sometimes, e.g. due to autolayout when first initialising. */
-                        Animated.neq(y, 0),
+        // onScroll={Animated.event(
+        //   [
+        //     {
+        //       nativeEvent: {
+        //         panGestureTranslationInWebView: {
+        //           // y: this.props.scrollY,
+        //           y: y => {
+        //             return Animated.block([
+        //               Animated.cond(
+        //                 /* We won't update scrollY if there was no panGesture movement.
+        //                  * This is necessary because onScroll is called without gestures
+        //                  * sometimes, e.g. due to autolayout when first initialising. */
+        //                 Animated.neq(y, 0),
 
-                        /* We always receive a gesture relative to 0.
-                         * e.g. when panning down (scrolling up): +3, 9, 12, 20.
-                         * It needs to be added to the current this.props.scrollY to make sense. */
-                        Animated.set(
-                          this.props.scrollY,
-                          Animated.max(
-                            -HEADER_RETRACTION_DISTANCE,
-                            Animated.min(
-                              HEADER_RETRACTION_DISTANCE,
-                              Animated.add(this.props.scrollY, y),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Animated.call([y], r => {
-                        // console.log(`Reanimated got arg`, r[0]);
-                      }),
-                    ]);
-                  },
-                },
-              },
-            },
-          ],
-          {
-            useNativeDriver: true,
-          },
-        )}
-        onScrollEndDrag={Animated.event(
-          [
-            {
-              nativeEvent: {
-                velocity: {
-                  y: this.props.scrollEndDragVelocity,
-                },
-              },
-            },
-          ],
-          {
-            useNativeDriver: true,
-          },
-        )}
+        //                 /* We always receive a gesture relative to 0.
+        //                  * e.g. when panning down (scrolling up): +3, 9, 12, 20.
+        //                  * It needs to be added to the current this.props.scrollY to make sense. */
+        //                 Animated.set(
+        //                   this.props.scrollY,
+        //                   Animated.max(
+        //                     -HEADER_RETRACTION_DISTANCE,
+        //                     Animated.min(
+        //                       HEADER_RETRACTION_DISTANCE,
+        //                       Animated.add(this.props.scrollY, y),
+        //                     ),
+        //                   ),
+        //                 ),
+        //               ),
+        //               Animated.call([y], r => {
+        //                 // console.log(`Reanimated got arg`, r[0]);
+        //               }),
+        //             ]);
+        //           },
+        //         },
+        //       },
+        //     },
+        //   ],
+        //   {
+        //     useNativeDriver: true,
+        //   },
+        // )}
+        // onScrollEndDrag={Animated.event(
+        //   [
+        //     {
+        //       nativeEvent: {
+        //         velocity: {
+        //           y: this.props.scrollEndDragVelocity,
+        //         },
+        //       },
+        //     },
+        //   ],
+        //   {
+        //     useNativeDriver: true,
+        //   },
+        // )}
         onLoadStart={this.onLoadStarted}
         onLoadCommit={this.onLoadCommitted}
         onLoadEnd={this.onLoadFinished}

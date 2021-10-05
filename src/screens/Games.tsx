@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, Text} from 'react-native';
 
 const Games = ({webView}) => {
@@ -6,4 +6,4 @@ const Games = ({webView}) => {
   return <>{webView}</>;
 };
 
-export default Games;
+export default memo(Games);

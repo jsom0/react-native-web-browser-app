@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, Text} from 'react-native';
 
 const Blog = ({webView}) => {
-  console.log('========This is Blog=======');
+  console.log('========This is Blog1=======');
   return <>{webView}</>;
 };
 
-export default Blog;
+export default memo(Blog);
